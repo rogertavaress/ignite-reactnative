@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from 'react';
 import {
-  View, 
-  Text, 
-  StyleSheet, 
-  TextInput, 
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
   Platform,
-  FlatList
+  FlatList,
+  StatusBar,
 } from 'react-native';
-import { Button } from "../components/Button";
-import { SkillCard } from "../components/SkillCard";
+import {Button} from '../components/Button';
+import {SkillCard} from '../components/SkillCard';
 
 export function Home() {
   const [newSkill, setNewSkill] = useState('');
@@ -17,63 +18,70 @@ export function Home() {
 
   function handleAddNewSkill() {
     setMySkills(oldState => [...oldState, newSkill]);
+    setNewSkill('');
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     const currentHour = new Date().getHours();
-    if(currentHour < 12) {
-      setGreeting('Bom dia!')
-    } else if(currentHour < 18) {
-      setGreeting('Boa tarde!')
+
+    if (currentHour < 12) {
+      setGreeting('Bom dia');
+    } else if (currentHour < 18) {
+      setGreeting('Boa tarde!');
     } else {
-      setGreeting('Boa noite!')
+      setGreeting('Boa noite');
     }
   }, []);
 
   return (
     <View style={styles.container}>
-        <Text style={styles.title}>Welcome, Roger!</Text>
-        <Text style={styles.greetings}>{greeting}</Text>
-        <TextInput 
-          style={styles.input}
-          placeholder="New Skill"
-          placeholderTextColor="#555"
-          onChangeText={setNewSkill}
-        />
-        <Button onPress={handleAddNewSkill} />
-        <Text style={[styles.title, {marginVertical: 50}]}>My Skills</Text>
-        <FlatList 
-          data={mySkills}
-          keyExtractor={item => item}
-          renderItem={({item}) => (
-            <SkillCard skill={item} />
-          )}
-        />
+      <StatusBar barStyle="light-content" />
+      <FlatList
+        data={mySkills}
+        ListHeaderComponent={() => (
+          <>
+            <Text style={styles.title}>Olá Rogério</Text>
+            <Text style={styles.greeting}>{greeting}</Text>
+            <TextInput
+              value={newSkill}
+              style={styles.input}
+              placeholder="Nova Skill"
+              placeholderTextColor="#555"
+              onChangeText={setNewSkill}
+            />
+            <Button onPress={handleAddNewSkill} />
+
+            <Text style={[styles.title, {marginVertical: 50}]}>My Skills</Text>
+          </>
+        )}
+        keyExtractor={item => item}
+        renderItem={({item}) => <SkillCard skill={item} />}
+      />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, 
+    flex: 1,
     backgroundColor: '#121015',
+    paddingVertical: 70,
     paddingHorizontal: 30,
-    paddingVertical: 70
   },
   title: {
     color: '#fff',
     fontSize: 24,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   input: {
-    backgroundColor: '#1F1e25',
+    backgroundColor: '#1f1e25',
     color: '#fff',
     fontSize: 18,
     padding: Platform.OS === 'ios' ? 15 : 10,
     marginTop: 30,
-    borderRadius: 7
+    borderRadius: 7,
   },
-  greetings: {
-    color: '#fff'
-  }
-})
+  greeting: {
+    color: '#fff',
+  },
+});
