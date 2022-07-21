@@ -22,6 +22,7 @@ export function Home() {
   const [greeting, setGreeting] = useState('');
 
   function handleAddNewSkill() {
+    showLog();
     if (newSkill.length === 0) {
       return;
     }
@@ -35,6 +36,10 @@ export function Home() {
 
   function handleRemoveSkill(id: string) {
     setMySkills(oldState => oldState.filter(skill => skill.id !== id));
+  }
+
+  function showLog() {
+    console.log('Mostrar log');
   }
 
   useEffect(() => {
