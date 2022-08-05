@@ -1,10 +1,22 @@
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 
 export default function App() {
   return (
-    <>
-      <Text>React</Text>
-      <Text>Native</Text>
-    </>
+    <View style={{
+      flex: 1,
+      backgroundColor: "#131016",
+      padding: 24
+    }}>
+      <Text style={{
+        color: "#fdfcfe",
+        fontSize: 24,
+        fontWeight: "bold",
+        marginTop: 48
+        }}>Nome do evento</Text>
+      <Text style={{
+        color: "#6b6b6b",
+        fontSize: 16
+      }}>Native</Text>
+    </ View>
   )
 }
