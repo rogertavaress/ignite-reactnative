@@ -1,6 +1,6 @@
 import { FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Participant } from "../../components/Participant";
-import {styles} from "./styles"
+import { styles } from "./styles"
 
 export function Home() {
   const participants = ["Rogério", "Suelen"];
