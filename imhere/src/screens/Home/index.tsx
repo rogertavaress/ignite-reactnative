@@ -8,11 +8,12 @@ export function Home() {
   const [participantName, setParticipantName] = useState('');
 
   function handleParticipantAdd() {
-    if(participants.includes(participantName)) {
+    if(participants.includes(participantName.trim())) {
       Alert.alert("Participante existe", "Já existe um participante na lista com esse nome")
+    } else {
+      setParticipants(prevState => [participantName.trim(),...prevState]);
+      setParticipantName("");
     }
-
-    setParticipants(prevState => [participantName,...prevState]);
   }
 
   function handleParticipantRemove(name: string) {
@@ -35,6 +36,7 @@ export function Home() {
           placeholder="Nome do participante"
           placeholderTextColor="#6b6b6b"
           onChangeText={setParticipantName}
+          value={participantName}
         />
         <TouchableOpacity style={styles.button} onPress={handleParticipantAdd}>
           <Text style={styles.buttonText}>+</Text>
